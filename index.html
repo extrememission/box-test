@@ -16,8 +16,20 @@
             width: 100%;
             padding: 10px;
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
+            align-items: center;
             box-sizing: border-box;
+        }
+
+        .slider-container label {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        .slider-container input {
+            width: 100%;
+            margin-bottom: 15px;
         }
 
         .flex-container {
@@ -37,6 +49,9 @@
             align-items: center;
             margin: 0; /* initial margin */
             box-sizing: border-box;
+            border: 1px solid black; /* initial border */
+            padding: 0; /* initial padding */
+            font-size: 14px; /* initial font size */
         }
     </style>
 </head>
@@ -50,6 +65,16 @@
         <input type="range" id="gapX" min="0" max="30" value="0">
         <label for="gapY">Vertical Gap: </label>
         <input type="range" id="gapY" min="0" max="30" value="0">
+        <label for="bgColor">Box Background Color: </label>
+        <input type="color" id="bgColor" value="#add8e6">
+        <label for="borderColor">Box Border Color: </label>
+        <input type="color" id="borderColor" value="#000000">
+        <label for="borderThickness">Box Border Thickness (0-10): </label>
+        <input type="range" id="borderThickness" min="0" max="10" value="1">
+        <label for="padding">Box Text Padding (0-20): </label>
+        <input type="range" id="padding" min="0" max="20" value="0">
+        <label for="fontSize">Box Font Size (10-30): </label>
+        <input type="range" id="fontSize" min="10" max="30" value="14">
     </div>
     <div class="flex-container" id="flexContainer">
         <!-- JavaScript will generate the boxes here -->
@@ -71,6 +96,11 @@
             document.getElementById('margin2').addEventListener('input', updateMargins);
             document.getElementById('gapX').addEventListener('input', updateGaps);
             document.getElementById('gapY').addEventListener('input', updateGaps);
+            document.getElementById('bgColor').addEventListener('input', updateBgColor);
+            document.getElementById('borderColor').addEventListener('input', updateBorderColor);
+            document.getElementById('borderThickness').addEventListener('input', updateBorderThickness);
+            document.getElementById('padding').addEventListener('input', updatePadding);
+            document.getElementById('fontSize').addEventListener('input', updateFontSize);
 
             function updateMargins() {
                 const margin1 = document.getElementById('margin1').value + 'px';
@@ -86,6 +116,46 @@
                 const gapY = document.getElementById('gapY').value + 'px';
 
                 flexContainer.style.gap = `${gapY} ${gapX}`;
+            }
+
+            function updateBgColor() {
+                const bgColor = document.getElementById('bgColor').value;
+
+                document.querySelectorAll('.box').forEach(box => {
+                    box.style.backgroundColor = bgColor;
+                });
+            }
+
+            function updateBorderColor() {
+                const borderColor = document.getElementById('borderColor').value;
+
+                document.querySelectorAll('.box').forEach(box => {
+                    box.style.borderColor = borderColor;
+                });
+            }
+
+            function updateBorderThickness() {
+                const borderThickness = document.getElementById('borderThickness').value + 'px';
+
+                document.querySelectorAll('.box').forEach(box => {
+                    box.style.borderWidth = borderThickness;
+                });
+            }
+
+            function updatePadding() {
+                const padding = document.getElementById('padding').value + 'px';
+
+                document.querySelectorAll('.box').forEach(box => {
+                    box.style.padding = padding;
+                });
+            }
+
+            function updateFontSize() {
+                const fontSize = document.getElementById('fontSize').value + 'px';
+
+                document.querySelectorAll('.box').forEach(box => {
+                    box.style.fontSize = fontSize;
+                });
             }
         });
     </script>
